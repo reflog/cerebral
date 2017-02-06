@@ -76,17 +76,17 @@ const controller = Controller({
   modules: {
     router: Router({
       onlyHash: true,
-      filterFalsy: true,
+      filterFalsy: false,
       routes: [
         {path: '/', signal: 'rootRouted'},
         // simple map to signal. all parsed path and queries params goes to signal
         // {path: '/:filter', signal: 'app.filterClicked'}
         // map to signal + state
-        {path: '/:filterName', signal: 'app.filterClicked', map: {filterName: input`filter`, title: state`app.newTodoTitle`}}
+        {path: '/:filterName', signal: 'app.filterClicked', map: {filterName: props`filter`, todos: state`app.newTodoTitle`}}
         // map to state only.
         // {path: '/:filterName', map: {filterName: state`app.filter`, title: state`app.newTodoTitle`}}
       ]
-    }),
+    })
   }
 })
 
