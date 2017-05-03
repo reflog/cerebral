@@ -15,7 +15,8 @@ export default class Router {
         getUrl: this.getUrl.bind(this),
         setUrl: this.setUrl.bind(this),
         goTo: this.goTo.bind(this),
-        redirect: this.redirect.bind(this)
+        redirect: this.redirect.bind(this),
+        redirectToSignal: this.redirectToSignal.bind(this)
         // getPathUrl(path, partialValues)
         // getSignalUrl(signalName, payload)
       }
@@ -32,7 +33,7 @@ export default class Router {
       this.routesBySignal = getRoutesBySignal(this.routesConfig, controller)
 
       addressbar.on('change', this.onUrlChange.bind(this))
-      controller.runTree.on('start', this.onSignalStart.bind(this))
+      controller.on('start', this.onSignalStart.bind(this))
       controller.on('flush', this.onFlush.bind(this))
 
       if (!options.preventAutostart) {
@@ -127,7 +128,6 @@ export default class Router {
     )
 
     this.setUrl(url)
-    console.log('update url on signal start')
 
     this.activeRoute = {route, payload}
   }
@@ -179,5 +179,13 @@ export default class Router {
     }
 
     this.onUrlChange()
+  }
+
+  redirectToSignal (signalName, payload) {
+    const route = this.routesBySignal[signalName]
+    if (!route) {
+      console.warn(`redirectToSignal: signal '${signalName}' not bound to route.`)
+    }
+    this.controller.getSignal(signalName)(payload)
   }
 }
