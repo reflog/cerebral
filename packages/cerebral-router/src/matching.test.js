@@ -28,9 +28,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/')
-      triggerUrlChange('/?query')
+      triggerUrlChange('/?query=')
       triggerUrlChange('/#hash')
-      triggerUrlChange('/?query#hash')
+      triggerUrlChange('/?query=#hash')
       assert.equal(count, 4)
 
       assert.doesNotThrow(() => {
@@ -44,13 +44,13 @@ describe('Router - matching', () => {
       })
 
       triggerUrlChange('/path')
-      triggerUrlChange('/path?query')
+      triggerUrlChange('/path?query=')
       triggerUrlChange('/path/#/')
       assert.equal(console.warn.warnings.length, 3)
     })
     it('simple route', () => {
       let count = 0
-      const controller = (
+      const controller = makeTest(
         Router({
           preventAutostart: true,
           routes: {
@@ -62,9 +62,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/foo')
-      triggerUrlChange('/foo?query')
+      triggerUrlChange('/foo?query=')
       triggerUrlChange('/foo#hash')
-      triggerUrlChange('/foo?query#hash')
+      triggerUrlChange('/foo?query=#hash')
       assert.equal(count, 4)
 
       assert.doesNotThrow(() => {
@@ -78,7 +78,7 @@ describe('Router - matching', () => {
       })
 
       triggerUrlChange('/foo/path')
-      triggerUrlChange('/foo/path?query')
+      triggerUrlChange('/foo/path?query=')
       triggerUrlChange('/foo/path/#/')
       assert.equal(console.warn.warnings.length, 3)
     })
@@ -96,9 +96,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/foo/bar/baz/42')
-      triggerUrlChange('/foo/bar/baz/42?query')
+      triggerUrlChange('/foo/bar/baz/42?query=')
       triggerUrlChange('/foo/bar/baz/42#hash')
-      triggerUrlChange('/foo/bar/baz/42?query#hash')
+      triggerUrlChange('/foo/bar/baz/42?query=#hash')
       assert.equal(count, 4)
 
       assert.doesNotThrow(() => {
@@ -132,9 +132,9 @@ describe('Router - matching', () => {
 
       triggerUrlChange('/foo/foo')
       triggerUrlChange('/foo/bar')
-      triggerUrlChange('/foo/bar?query')
+      triggerUrlChange('/foo/bar?query=')
       triggerUrlChange('/foo/bar#hash')
-      triggerUrlChange('/foo/bar?query#hash')
+      triggerUrlChange('/foo/bar?query=#hash')
       assert.equal(count, 5)
 
       assert.doesNotThrow(() => {
@@ -166,9 +166,9 @@ describe('Router - matching', () => {
 
       triggerUrlChange('/foo/foo/bar')
       triggerUrlChange('/foo/bar/bar')
-      triggerUrlChange('/foo/foo/bar?query')
+      triggerUrlChange('/foo/foo/bar?query=')
       triggerUrlChange('/foo/foo/bar#hash')
-      triggerUrlChange('/foo/foo/bar?query#hash')
+      triggerUrlChange('/foo/foo/bar?query=#hash')
       assert.equal(count, 5)
 
       assert.doesNotThrow(() => {
@@ -207,9 +207,9 @@ describe('Router - matching', () => {
 
       triggerUrlChange('/foo/foo-test/%3A42')
       triggerUrlChange('/foo/foo-bar-test/%3A42')
-      triggerUrlChange('/foo/foo-test/%3A42?query')
+      triggerUrlChange('/foo/foo-test/%3A42?query=')
       triggerUrlChange('/foo/foo-test/%3A42#hash')
-      triggerUrlChange('/foo/foo-test/%3A42?query#hash')
+      triggerUrlChange('/foo/foo-test/%3A42?query=#hash')
       assert.equal(count, 5)
 
       assert.doesNotThrow(() => {
@@ -279,9 +279,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/base')
-      triggerUrlChange('/base?query')
+      triggerUrlChange('/base?query=')
       triggerUrlChange('/base#hash')
-      triggerUrlChange('/base?query#hash')
+      triggerUrlChange('/base?query=#hash')
       assert.equal(count, 4)
 
       assert.doesNotThrow(() => {
@@ -295,7 +295,7 @@ describe('Router - matching', () => {
       })
 
       triggerUrlChange('/base/path')
-      triggerUrlChange('/base/path?query')
+      triggerUrlChange('/base/path?query=')
       triggerUrlChange('/base/path/#/')
       assert.equal(console.warn.warnings.length, 3)
     })
@@ -316,9 +316,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/#/')
-      triggerUrlChange('/#/?query')
+      triggerUrlChange('/#/?query=')
       triggerUrlChange('/#/#hash')
-      triggerUrlChange('/#/?query#hash')
+      triggerUrlChange('/#/?query=#hash')
       triggerUrlChange('/')
       assert.equal(count, 5)
 
@@ -354,11 +354,11 @@ describe('Router - matching', () => {
         }
       )
 
-      triggerUrlChange('/base/#/')
-      triggerUrlChange('/base/#/?query')
-      triggerUrlChange('/base/#/#hash')
-      triggerUrlChange('/base/#/?query#hash')
-      triggerUrlChange('/base/')
+      triggerUrlChange('/base#/')
+      triggerUrlChange('/base#/?query=')
+      triggerUrlChange('/base#/#hash')
+      triggerUrlChange('/base#/?query=#hash')
+      triggerUrlChange('/base')
       assert.equal(count, 5)
 
       assert.doesNotThrow(() => {
@@ -371,7 +371,7 @@ describe('Router - matching', () => {
         controller.getSignal('home')()
       })
 
-      triggerUrlChange('/base/#/foo')
+      triggerUrlChange('/base#/foo')
       triggerUrlChange('/base/foo#/')
       assert.equal(console.warn.warnings.length, 1)
       assert.equal(addressbar.value, addressbar.origin + '/base/foo#/')
@@ -394,9 +394,9 @@ describe('Router - matching', () => {
       )
 
       triggerUrlChange('/base/#/')
-      triggerUrlChange('/base/#/?query')
+      triggerUrlChange('/base/#/?query=')
       triggerUrlChange('/base/#/#hash')
-      triggerUrlChange('/base/#/?query#hash')
+      triggerUrlChange('/base/#/?query=#hash')
       triggerUrlChange('/base/')
       assert.equal(count, 5)
 

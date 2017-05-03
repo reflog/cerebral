@@ -60,7 +60,15 @@ export default class Router {
     const url = this.getRoutablePart(event ? event.target.value : this.addressbar.value)
     if (url === null) return
 
-    const {match, route, values} = this.mapper.map(url, this.routesConfig) || {}
+    let match, route, values
+    try {
+      const mapped = this.mapper.map(url, this.routesConfig) || {}
+      match = mapped.match
+      route = mapped.route
+      values = mapped.values
+    } catch (err) {
+      throw new Error('Could not parse url (' + err + ').')
+    }
 
     if (!match) {
       if (this.options.allowEscape) return

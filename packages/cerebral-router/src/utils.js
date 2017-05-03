@@ -16,7 +16,6 @@ function compatConfig (config, prev = '') {
 
 export function flattenConfig (config, prev = '') {
   if (!Array.isArray(config)) {
-    console.log(`DEPRECATION: Please use new router API.`)
     const flatConfig = compatConfig(config, prev)
     config = Object.keys(flatConfig).map(key => ({
       path: key,
