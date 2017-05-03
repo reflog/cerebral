@@ -76,7 +76,7 @@ export default class Router {
     const getters = {props: payload, state: this.stateGetter}
 
     if (stateMapping.length) {
-      console.log('set state from url change')
+      // console.log('set state from url change')
       this.controller.runSignal('router.routed', [
         ({state, resolve}) => {
           stateMapping.forEach((key) => {
@@ -96,7 +96,7 @@ export default class Router {
 
     const prevSignal = (this.routesConfig[this.activeRoute.route] || {}).signal
     if (signal && (prevSignal !== signal || getChangedProps(payload || {}, this.activeRoute.payload || {}))) {
-      console.log('start signal from url change')
+      // console.log('start signal from url change')
       this.controller.getSignal(signal)(payload)
     }
 
@@ -154,7 +154,7 @@ export default class Router {
     }, {})
 
     if (shouldUpdate) {
-      console.log('update url on flush')
+      // console.log('update url on flush')
       this.setUrl(this.mapper.stringify(route, Object.assign({}, resolvedMap)))
     }
   }

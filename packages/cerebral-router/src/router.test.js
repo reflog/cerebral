@@ -1,28 +1,11 @@
 /* eslint-env mocha */
 /* eslint-disable no-console */
-const triggerUrlChange = require('./testHelper').triggerUrlChange
+const {makeTest, triggerUrlChange} = require('./testHelper')
 
 // Have to require due to mocks (load correct order)
-const Controller = require('../../cerebral/src/Controller').default
 const Router = require('../src').default
 const addressbar = require('addressbar')
 const assert = require('assert')
-
-const devtools = {
-  init () {},
-  send () {},
-  sendExecutionData () {}
-}
-
-function makeTest ( router, signals ) {
-  return Controller({
-    devtools,
-    modules: {
-      router
-    },
-    signals
-  })
-}
 
 /*
   TODO: /:param urls FAIL

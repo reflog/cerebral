@@ -1,9 +1,8 @@
 /* eslint-env mocha */
 /* eslint-disable no-console */
-const triggerUrlChange = require('./testHelper').triggerUrlChange
+const {makeTest, triggerUrlChange} = require('./testHelper')
 
 // Have to require due to mocks (load correct order)
-const Controller = require('../../cerebral/src/Controller').default
 const Router = require('../').default
 const addressbar = require('addressbar')
 const assert = require('assert')
@@ -17,18 +16,16 @@ describe('Router - matching', () => {
   describe('full url', () => {
     it('root route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/')
       triggerUrlChange('/?query')
@@ -53,18 +50,16 @@ describe('Router - matching', () => {
     })
     it('simple route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = (
+        Router({
           preventAutostart: true,
           routes: {
             '/foo': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/foo')
       triggerUrlChange('/foo?query')
@@ -89,18 +84,16 @@ describe('Router - matching', () => {
     })
     it('deep route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/foo/bar/baz/42': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/foo/bar/baz/42')
       triggerUrlChange('/foo/bar/baz/42?query')
@@ -126,18 +119,16 @@ describe('Router - matching', () => {
     })
     it('params route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/foo/:param': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/foo/foo')
       triggerUrlChange('/foo/bar')
@@ -162,18 +153,16 @@ describe('Router - matching', () => {
     })
     it('several params route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/foo/:param/:param2': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/foo/foo/bar')
       triggerUrlChange('/foo/bar/bar')
@@ -205,18 +194,16 @@ describe('Router - matching', () => {
     })
     it('regexp route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/foo/:param([\\w+-?]+)-test/:param2(%3A\\d+)': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/foo/foo-test/%3A42')
       triggerUrlChange('/foo/foo-bar-test/%3A42')
@@ -250,18 +237,16 @@ describe('Router - matching', () => {
     })
     it('catch all route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           preventAutostart: true,
           routes: {
             '/*': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
       triggerUrlChange('/')
       triggerUrlChange('/foo')
       triggerUrlChange('/foo/bar/baz')
@@ -281,19 +266,17 @@ describe('Router - matching', () => {
   describe('with baseUrl option', () => {
     it('root route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           baseUrl: '/base',
           preventAutostart: true,
           routes: {
             '/': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/base')
       triggerUrlChange('/base?query')
@@ -320,19 +303,17 @@ describe('Router - matching', () => {
   describe('with onlyHash option', () => {
     it('root route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           onlyHash: true,
           preventAutostart: true,
           routes: {
             '/': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/#/')
       triggerUrlChange('/#/?query')
@@ -360,20 +341,18 @@ describe('Router - matching', () => {
   describe('with onlyHash and baseUrl option', () => {
     it('root route', () => {
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           onlyHash: true,
           baseUrl: '/base',
           preventAutostart: true,
           routes: {
             '/': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/base/#/')
       triggerUrlChange('/base/#/?query')
@@ -402,19 +381,17 @@ describe('Router - matching', () => {
     it('root route', () => {
       addressbar.value = addressbar.origin + '/base/'
       let count = 0
-      const controller = Controller({
-        devtools: {init () {}, send () {}},
-        router: Router({
+      const controller = makeTest(
+        Router({
           onlyHash: true,
           preventAutostart: true,
           routes: {
             '/': 'home'
           }
-        }),
-        signals: {
+        }), {
           'home': [() => { count++ }]
         }
-      })
+      )
 
       triggerUrlChange('/base/#/')
       triggerUrlChange('/base/#/?query')
