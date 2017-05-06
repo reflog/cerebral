@@ -15,7 +15,7 @@ describe('stateMapping', () => {
     addressbar.removeAllListeners('change')
   })
 
-  it('should update url when mapped to state changes', () => {
+  it('should update url on state changes', () => {
     const controller = makeTest(
       Router({
         preventAutostart: true,
@@ -30,8 +30,29 @@ describe('stateMapping', () => {
       }
     )
 
-    triggerUrlChange('/foo')
-    controller.getSignal('test')()
+    triggerUrlChange('/foo') // make route active
+    controller.getSignal('test')() // trigger state changes
     assert.equal(addressbar.value, 'http://localhost:3000/bar')
+  })
+
+  it('should update url query on state changes', () => {
+    const controller = makeTest(
+      Router({
+        preventAutostart: true,
+        routes: [{
+          path: '/:page',
+          map: {page: state`page`, focus: state`focus`}
+        }]
+      }), {
+        test: [({state}) => {
+          state.set('page', 'bar')
+          state.set('focus', 'someField')
+        }]
+      }
+    )
+
+    triggerUrlChange('/foo') // make route active
+    controller.getSignal('test')() // trigger state changes
+    assert.equal(addressbar.value, 'http://localhost:3000/bar?focus=someField')
   })
 })

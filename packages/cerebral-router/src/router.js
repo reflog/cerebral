@@ -84,7 +84,7 @@ export default class Router {
     let payload = values
     const getters = {props: payload, state: this.stateGetter}
 
-    if (stateMapping.length) {
+    if (stateMapping) {
       this.controller.runSignal('router.routed', [
         ({state, resolve}) => {
           stateMapping.forEach((key) => {
@@ -94,7 +94,7 @@ export default class Router {
       ])
     }
 
-    if (propsMapping.length) {
+    if (propsMapping) {
       payload = propsMapping.reduce((mappedPayload, key) => {
         mappedPayload[map[key].getPath(getters)] = values[key] || null
         return mappedPayload
@@ -141,7 +141,7 @@ export default class Router {
   onFlush (changed) {
     const {route, payload} = this.activeRoute
     const {map, stateMapping} = this.routesConfig[route] || {}
-    if (!stateMapping || !stateMapping.length) return
+    if (!stateMapping) return
 
     const getters = {props: payload, state: this.stateGetter}
     let shouldUpdate = false
@@ -207,5 +207,9 @@ export default class Router {
       console.warn(`redirectToSignal: signal '${signalName}' not bound to route.`)
     }
     this.controller.getSignal(signalName)(payload)
+  }
+
+  reload () {
+    this.redirect(this.getUrl())
   }
 }
