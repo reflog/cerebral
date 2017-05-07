@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "link": "link-parent-bin -s true && link-parent-bin -s true -c babel && link-parent-bin -s true -c demos && link-parent-bin -s true -c website",
+    "link": "link-parent-bin -s true && link-parent-bin -s true -c babel && link-parent-bin -s true -c demos && link-parent-bin -s true -c website && link-parent-bin -s true -c debugger",
     "setup": "lerna bootstrap",
     "setup:packages": "lerna bootstrap --scope \"@(function-tree|cerebral*)\"",
     "setup:babel": "lerna bootstrap --scope \"@(function-tree|cerebral*|babel*)\"",

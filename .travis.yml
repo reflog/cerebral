@@ -12,25 +12,21 @@ before_script:
 - lerna bootstrap --scope @cerebral/codemods*
 after_success:
 - |
-  git remote add auth https://cerebraljs:${GH_TOKEN}@github.com/cerebral/cerebral;
+  git remote add auth https://cerebraljs:${GH_TOKEN}@github.com/reflog/cerebral;
   git config --global user.email "cerebraljs@gmail.com";
   git config --global user.name "Cerebral JS";
-  if [[ $TRAVIS_BRANCH == 'master' || $TRAVIS_PULL_REQUEST == 'true' ]]; then
-    npm run coverage;
-    npm run coverage:upload;
-  fi
-  if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    # TODO: parse commit message for instructions to skip tagging and publishing
-    git tag next -f;
-    git push auth --tags -f &>/dev/null;
-  fi
-  if [[ $TRAVIS_BRANCH == 'next' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  if [[ $TRAVIS_BRANCH == 'debugger_autoupdate' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
     # TODO: check changed path to decide if npm publish necessary
     npm run link;
     lerna bootstrap;
-    echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc;
-    lerna publish -c --npm-tag next --yes --exact;
-    npm run deploy && echo 'Website updated.';
+    cd debugger;
+    npm run build;
+    if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
+      npm run package:linux;
+    fi
+    if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+      npm run package:mac;
+    fi
   fi
 branches:
   except:
