@@ -18,7 +18,6 @@ addons:
     packages:
       - mono-devel
       - wine1.8
-      - ca-certificates-mono
       - rpm
       - bsdtar
       - icnsutils
