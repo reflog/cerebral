@@ -1,5 +1,5 @@
 {
-  "name": "debugger",
+  "name": "@cerebral/debugger",
   "version": "1.0.0",
   "description": "Cerebral Debugger",
   "private": true,
