@@ -7,11 +7,11 @@ cache:
   - node_modules
 
 before_install: 
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; sudo add-apt-repository ppa:ubuntu-wine/ppa -y ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; sudo apt-get update ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; sudo apt-get install --no-install-recommends -y wine1.8 mono-devel ca-certificates-mono rpm ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo add-apt-repository ppa:ubuntu-wine/ppa -y ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo apt-get update ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo apt-get install --no-install-recommends -y wine1.8 mono-devel ca-certificates-mono rpm ;fi
 
 matrix:
   include:
