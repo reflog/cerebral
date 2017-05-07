@@ -6,6 +6,10 @@ cache:
   directories:
   - node_modules
 
+before_install: 
+  - sudo dpkg --add-architecture i386
+  - sudo apt-get -qq update
+  - sudo apt-get install wine1.6
 
 matrix:
   include:
@@ -26,6 +30,8 @@ addons:
       - xz-utils
       - xorriso
       - xvfb
+
+install: true
   
 notifications:
   email: false
@@ -45,7 +51,7 @@ after_success:
     cd debugger;
     npm run build;
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
-      npm run package:linux;
+      npm run package:wl;
     fi
     if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
       npm run package:mac;

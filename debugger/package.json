@@ -1,23 +1,28 @@
 {
-  "name": "@cerebral/debugger",
+  "name": "debugger",
   "version": "1.0.0",
   "description": "Cerebral Debugger",
   "private": true,
   "main": "electron/main.js",
   "scripts": {
+    "postinstall": "install-app-deps",
     "start": "concurrently -k \"cross-env NODE_ENV=development node electron/devServer.js\" \"cross-env NODE_ENV=development npm run electron\"",
     "electron": "electron .",
     "build": "cross-env NODE_ENV=production webpack && npm run prepare:electron",
     "prepare:electron": "rimraf electron/dist electron/node_modules && node scripts/createElectronSymlink",
     "package:win": "build -w",
     "package:mac": "build -m",
-    "package:linux": "build -l"
+    "package:linux": "build -l",
+    "package:wl": "build -wl"
   },
   "repository": "https://github.com/reflog/cerebral",
   "author": "Christian Alfoni",
   "build": {
     "productName": "Cerebral Debugger",
     "appId": "cerebral.debugger",
+    "linux": {
+      "target": ["tar.xz", "deb", "rpm"]
+    },
     "mac": {
       "category": "your.app.category.type"
     }
