@@ -7,14 +7,11 @@ cache:
     - node_modules
     - $HOME/.cache/bower
     - $HOME/.npm    
-  apt: true
-before_install: 
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo dpkg --add-architecture i386 ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get purge postgresql-9.3 postgresql-contrib-9.3 postgresql-9.4 postgresql-contrib-9.4 postgresql-9.5 postgresql-contrib-9.5 postgresql-9.6 postgresql-contrib-9.6 ;fi  
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y wine1.8 ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get upgrade libstdc++6 ;fi
+os:
+  - osx
 
+before_install: 
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install wine && wine --version && brew install makensis  ;fi
 mono: latest
 addons:
   apt:
