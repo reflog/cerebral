@@ -14,6 +14,16 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install  --no-install-recommends -y wine1.6 mono-devel ca-certificates-mono rpm ;fi
 
 
+addons:
+  apt:
+    packages:
+      - bsdtar
+      - icnsutils
+      - gcc-multilib
+      - g++-multilib
+      - graphicsmagick
+      - rpm
+      - xz-utils
 
 install: true
   
