@@ -8,15 +8,18 @@ cache:
 
 before_install: 
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo dpkg --add-architecture i386 ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install  --no-install-recommends -y wine1.6 mono-devel ca-certificates-mono rpm ;fi
 
-
+mono: latest
 addons:
   apt:
+    sources:
+      - deadsnakes
+      - sourceline: 'ppa:ubuntu-wine/ppa'
     packages:
+      - mono-devel
+      - wine1.8
+      - ca-certificates-mono
+      - rpm
       - bsdtar
       - icnsutils
       - gcc-multilib
