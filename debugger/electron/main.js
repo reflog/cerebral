@@ -11,7 +11,7 @@ const {autoUpdater} = require('electron-updater')
 autoUpdater.logger = log
 autoUpdater.logger.transports.file.level = 'info'
 autoUpdater.on('checking-for-update', () => {
-  log.info('Checking for update...')
+  log.info('Checking for update... Please wait.')
 })
 autoUpdater.on('update-available', (ev, info) => {
   log.info('Update available.')
