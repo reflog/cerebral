@@ -12,7 +12,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo dpkg --add-architecture i386 ;fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get purge postgresql-9.3 postgresql-contrib-9.3 postgresql-9.4 postgresql-contrib-9.4 postgresql-9.5 postgresql-contrib-9.5 postgresql-9.6 postgresql-contrib-9.6 ;fi  
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update ;fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y wine ;fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y wine1.8 ;fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get upgrade libstdc++6 ;fi
 
 mono: latest
