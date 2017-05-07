@@ -5,7 +5,8 @@ node_js: '6'
 cache:
   directories:
     - node_modules
-    - $HOME/.cache/bower
+    - "$HOME/.electron"
+    - /Library/Caches/Homebrew
     - $HOME/.npm    
 os:
   - osx
@@ -52,10 +53,10 @@ after_success:
     cd debugger;
     npm run build;
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
-      npm run package:wl;
+      npm run package:linux;
     fi
     if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-      npm run package:mac;
+      npm run package:mac_and_win;
     fi
   fi
 branches:

@@ -12,7 +12,7 @@
     "package:win": "build -w",
     "package:mac": "build -m",
     "package:linux": "build -l",
-    "package:wl": "build -wl"
+    "package:mac_and_win": "build -wm"
   },
   "repository": "https://github.com/reflog/cerebral",
   "author": "Christian Alfoni",
