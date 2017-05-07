@@ -5,7 +5,6 @@
   "private": true,
   "main": "electron/main.js",
   "scripts": {
-    "postinstall": "install-app-deps",
     "start": "concurrently -k \"cross-env NODE_ENV=development node electron/devServer.js\" \"cross-env NODE_ENV=development npm run electron\"",
     "electron": "electron .",
     "build": "cross-env NODE_ENV=production webpack && npm run prepare:electron",
