@@ -48,7 +48,7 @@ after_success:
   if [[ $TRAVIS_BRANCH == 'debugger_autoupdate' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
     # TODO: check changed path to decide if npm publish necessary
     lerna bootstrap;
-    cd debugger;
+    pushd debugger;
     npm run build;
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       npm run package:linux;
@@ -56,6 +56,10 @@ after_success:
     if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
       npm run package:mac_and_win;
     fi
+    if [[ $? -ne 0 ]] ; then
+     exit 1
+    fi 
+    popd;
   fi
 branches:
   except:

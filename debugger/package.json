@@ -1,5 +1,5 @@
 {
-  "name": "@cerebral/debugger",
+  "name": "cerebral_debugger",
   "version": "1.0.0",
   "description": "Cerebral Debugger",
   "private": true,
@@ -15,15 +15,15 @@
     "package:mac_and_win": "build -wm"
   },
   "repository": "https://github.com/reflog/cerebral",
-  "author": "Christian Alfoni",
+  "author": "Christian Alfoni <support@cerebraljs.com>",
   "build": {
     "productName": "Cerebral Debugger",
     "appId": "cerebral.debugger",
     "linux": {
-      "target": ["tar.xz", "deb", "rpm"]
+      "target": [ "AppImage", "tar.gz", "deb", "rpm" ]
     },
     "mac": {
-      "category": "your.app.category.type"
+      "category": "public.app-category.developer-tools"
     }
   },
   "dependencies": {
