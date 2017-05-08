@@ -70,6 +70,9 @@
 					<td class="new"></td>
 				</tr>
 			</table>
+			<h1>Release notes</h1>
+			<p class="notes">
+			</p>
 		</div>
 		<hr />
 		<p class="controls">
@@ -79,9 +82,14 @@
 		</p>
 		<script>
 			const remote = require('electron').remote;
-			require('electron').ipcRenderer.on('new-version', function(e, version) {
+			const ipc = require('electron').ipcRenderer;
+			ipc.on('new-version', function(e, version) {
 				document.querySelector('.old').innerHTML = remote.app.getVersion();
 				document.querySelector('.new').innerHTML = version;
+			});
+			ipc.on('new-notes', function(e, notes) {
+				console.log("got notes",notes)
+				document.querySelector('.notes').innerHTML = notes;
 			});
 			document.querySelectorAll('.response').forEach((item) => {
 				item.onclick = function(e) {

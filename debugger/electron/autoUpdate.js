@@ -60,7 +60,7 @@ function updateDownloaded () {
   })
 }
 
-function updateAvailable ({version}) {
+function updateAvailable ({version, releaseNotes}) {
   if (checkForUpdatesEvent) {
     checkForUpdatesEvent.sender.send('update-result', true)
   } else if (updateFile.skip === version) {
@@ -71,10 +71,10 @@ function updateAvailable ({version}) {
   let window = new BrowserWindow({
     title: 'Update Available',
     width: 600,
-    height: 330,
+    height: 630,
     show: false,
     center: true,
-    resizable: false,
+    resizable: true,
     maximizable: false,
     minimizable: false
   })
@@ -83,6 +83,7 @@ function updateAvailable ({version}) {
   window.setMenuBarVisibility(false)
 
   window.webContents.on('did-finish-load', () => {
+    window.webContents.send('new-notes', releaseNotes)
     window.webContents.send('new-version', version)
     window.show()
   })
