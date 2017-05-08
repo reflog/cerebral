@@ -33,8 +33,7 @@ addons:
       - rpm
       - xz-utils
 
-install: true
-  
+ 
 notifications:
   email: false
 before_script:
