@@ -1,5 +1,5 @@
-sudo: required
-dist: trusty
+sudo: false
+
 language: node_js
 node_js: '6'
 cache:
@@ -39,7 +39,6 @@ notifications:
   email: false
 before_script:
 - npm prune
-- npm run link
 - lerna bootstrap --scope '@(function-tree|cerebral|cerebral-forms|cerebral-provider-http|cerebral-provider-firebase|cerebral-provider-forms|cerebral-router|babel-*)'
 - lerna bootstrap --scope @cerebral/codemods*
 after_success:
@@ -49,7 +48,6 @@ after_success:
   git config --global user.name "Cerebral JS";
   if [[ $TRAVIS_BRANCH == 'debugger_autoupdate' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
     # TODO: check changed path to decide if npm publish necessary
-    npm run link;
     lerna bootstrap;
     cd debugger;
     npm run build;
