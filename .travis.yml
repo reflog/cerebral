@@ -19,10 +19,8 @@ addons:
   apt:
     sources:
       - deadsnakes
-      - sourceline: 'ppa:ubuntu-wine/ppa'
       - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
-      - mono-devel
       - rpm
       - bsdtar
       - icnsutils
